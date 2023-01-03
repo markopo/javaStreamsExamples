@@ -15,8 +15,9 @@ public class Main {
         var groupedMap = arrStream
                             .collect(groupingBy(Integer::intValue));
 
-        var groupedAndSortedArr = groupedMap.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, LinkedHashMap::new));
+        var groupedAndSortedArr = groupedMap.entrySet().stream()
+                                  .sorted((a, b) -> Integer.compare(b.getValue().size(), a.getValue().size()))
+                                  .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, LinkedHashMap::new));
 
         groupedAndSortedArr.forEach((val, list) -> System.out.println("Group: " + val + " num of: " + list.size()));
 
